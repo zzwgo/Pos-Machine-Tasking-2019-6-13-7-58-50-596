@@ -10,7 +10,7 @@ const DATA_BASE = [
     { "id": "0009", "name": "Diet Dr Pepper", "price": 11 },
     { "id": "0010", "name": "Fanta", "price": 12 }
 ]
-function isItemExits (items) {
+function isItemExist (items) {
     var ItemsID=[];
     let exits=false;
     for(var i=0;i<DATA_BASE.length;i++){
@@ -43,8 +43,20 @@ function calculatePrices(items){
     return {itemsDetails,total_cost}
 }
 
+function createReceipt(isItemExist, itemsDetails, total_cost) {
+    if (!isItemExist) {
+        return '[ERROR]: Item not exist'
+    }
+    let str = 'Receipts\n------------------------------------------------------------\n'
+    for(let item of itemsDetails){
+        str += `${item.detail.name}\t\t${item.count}\t${item.total}\n`
+    }
+    str += `------------------------------------------------------------\nPrice: ${total_cost}`
+    return str
+}
 
 module.exports = {
-    isItemExits,
+    isItemExist,
     calculatePrices,
+    createReceipt
 };
