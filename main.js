@@ -21,8 +21,30 @@ function isItemExits (items) {
     })
 }
 
+function calculatePrices(items){
+    let total_cost=0
+    var itemsDetails=[]
+    for(let item of items){
+       var itemFilter=itemsDetails.find(item=> item.detail.id===item)
+       if(!itemFilter){
+        var itemFilterDetail=DATA_BASE.find(db=> db.id===item);
+           itemsDetails.push({
+               detail:itemFilterDetail,
+               count:1,
+               total:itemFilterDetail.price
+           })
+           total_cost+=itemFilterDetail.price
+       }else{
+        itemFilter.count=itemFilter.count+1
+        itemFilter.total=itemFilter.total+itemFilter.price
+        total_cost+=itemFilter.detail.price
+       }
+    }
+    return {itemsDetails,total_cost}
+}
 
 
 module.exports = {
     isItemExits,
+    calculatePrices,
 };
