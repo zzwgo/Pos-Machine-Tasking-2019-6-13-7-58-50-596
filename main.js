@@ -54,9 +54,18 @@ function createReceipt(isItemExist, itemsDetails, total_cost) {
     str += `------------------------------------------------------------\nPrice: ${total_cost}`
     return str
 }
-
+function printReceipt(items){
+    if(isItemExist(items)){
+        const {itemsDetails, total_cost} = calculatePrices(items)
+        return createReceipt(true, itemsDetails, total_cost)
+    }else{
+        const {itemsDetails, total_cost}=[]
+        return createReceipt(false,itemsDetails,total_cost)
+    }
+}
 module.exports = {
     isItemExist,
     calculatePrices,
-    createReceipt
+    createReceipt,
+    printReceipt
 };
